@@ -13,6 +13,13 @@ spec:
       labels:
         app: grafana
     spec:
+      initContainers:
+        - name: init-chown
+          image: busybox
+          command: ["sh", "-c", "chown -R 472:472 /var/lib/grafana"]
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
       containers:
         - name: grafana
           image: grafana/grafana:11.2.0
@@ -24,6 +31,9 @@ spec:
             - name: grafana-config
               mountPath: /etc/grafana/grafana.ini
               subPath: grafana.ini
+          securityContext:
+            runAsUser: 472
+            runAsGroup: 472
       volumes:
         - name: grafana-storage
           persistentVolumeClaim:
@@ -60,6 +70,13 @@ spec:
       labels:
         app: prometheus
     spec:
+      initContainers:
+        - name: init-chown
+          image: busybox
+          command: ["sh", "-c", "chown -R 65534:65534 /prometheus"]
+          volumeMounts:
+            - name: prometheus-storage
+              mountPath: /prometheus
       containers:
         - name: prometheus
           image: prom/prometheus:v2.48.0
@@ -71,6 +88,9 @@ spec:
             - name: prometheus-config
               mountPath: /etc/prometheus/prometheus.yml
               subPath: prometheus.yml
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
       volumes:
         - name: prometheus-storage
           persistentVolumeClaim:
