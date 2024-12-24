@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: hongquan181203/nt548:auth-service
+          image: asdloc098l/auth-service:latest
           ports:
             - containerPort: 3100
             - containerPort: 3101

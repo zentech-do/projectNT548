@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: task-service
-          image: hongquan181203/nt548:task-service
+          image: asdloc098l/task-service:latest
           ports:
             - containerPort: 3300
           env:

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-fe
-          image: hongquan181203/nt548:todo-fe
+          image: asdloc098l/todo-fe:latest
           ports:
             - containerPort: 80
       imagePullSecrets:
